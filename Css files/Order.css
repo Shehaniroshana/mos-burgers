@@ -1,0 +1,492 @@
+/* === RESET / BASE STYLES === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(0deg, rgba(33, 2, 54, 1) 0%, rgba(21, 2, 31, 1) 100%);
+  color: #FFF;
+}
+
+a, button {
+  cursor: pointer;
+}
+
+/* === LAYOUT WRAPPER === */
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+/* === SIDEBAR === */
+.sidebar {
+  width: 80px;
+  background: linear-gradient(0deg, rgba(33, 2, 54, 1) 0%, rgba(21, 2, 31, 1) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0;
+  border-right: 1px solid #252323; /* Right border color */
+}
+
+
+.sidebar .logo {
+  width: 50px;
+  height: 50px;
+  background: #FF7D1A;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 20px 20px rgba(255, 106, 0, 0.2); 
+
+}
+
+.logo-h1 {
+  text-align: center;
+  justify-content: center;
+  padding: 8px;
+  margin: 0;
+}
+
+.sidebar .nav-item {
+  width: 40px;
+  height: 40px;
+  background: #2D303E;
+  border-radius: 8px;
+  margin: 1rem 0;
+  text-align: center;
+  padding: 8px;
+}
+
+/* Active nav item example */
+.sidebar .nav-item.active {
+  background: #EA7C69;
+  box-shadow: 2px 10px 15px rgba(255, 106, 0, 0.2); /* Bottom shadow effect */
+
+}
+
+/* === MAIN CONTENT === */
+.main-content {
+  flex: 1;
+  background: linear-gradient(90deg, rgb(19, 1, 40) 19%, rgb(0, 0, 0) 86%);
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.main-header h1 {
+  font-size: 2em;
+  font-weight: 900;
+}
+
+.main-header .date {
+  font-size: 0.9rem;
+  color: #AAA;
+}
+
+.search-bar {
+  margin-top: 1rem;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.8rem 2.5rem 0.8rem 1rem;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background-color: #1b1d27;
+  color: #FFF;
+}
+
+.btn-search {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  fill: #AAA;
+  cursor: pointer;
+}
+
+/* === TABS === */
+.tabs {
+  display: flex;
+  margin-top: 2rem;
+}
+
+.tabs button {
+  background: none;
+  border: none;
+  color: #AAA;
+  font-size: 1rem;
+  margin-right: 2rem;
+  padding-bottom: 0.5rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.tabs button.active {
+  color: #ffffff;
+  border-bottom: 2px solid #ff6f00;
+  box-shadow: 0 8px 8px rgba(255, 106, 0, 0.2); /* Bottom shadow effect */
+}
+
+/* === DISHES GRID === */
+.dishes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.dish-card {
+  background-color: #1F1D2B;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 2rem;
+}
+
+.dish-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+.dish-card img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.dish-card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.dish-card p {
+  font-size: 0.85rem;
+  color: #AAA;
+}
+
+.dish-card .price {
+  margin-top: 0.5rem;
+  font-weight: 600;
+  color: #FF7847;
+}
+
+.dish-card .discount {
+  margin-top: 0.5rem;
+  font-weight: 600;
+  color: #FFB535;
+}
+
+/* === PLACE ORDER === */
+.place-Order {
+  background: linear-gradient(0deg, rgba(33, 2, 54, 1) 0%, rgba(21, 2, 31, 1) 100%);
+  padding: 1.5rem;
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgb(45, 43, 43);
+}
+
+.place-Order h2 {
+  text-align: center;
+  color: #FFF;
+  font-size: 1.6rem;
+}
+
+.customer-selection {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-control {
+  padding: 8px;
+  font-size: 1em;
+  width: 200px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #1e1e20;
+  color: #ede6e6;
+}
+
+/* === CART TABLE === */
+.cart-table {
+  border-collapse: collapse;
+  margin-top: 40px;
+  
+}
+
+.cart-table th, .cart-table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  color: #FFF;
+}
+
+.cart-table th {
+  background-color: #FF7D1A;
+  
+}
+
+.cart-table tbody tr:nth-child(even) {
+  background-color: #2D303E;
+}
+
+.cart-table tbody tr:hover {
+  background-color: #333;
+}
+
+.cart-table td button {
+  padding: 6px 12px;
+  background-color: #EA7C69;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cart-table td button:hover {
+  background-color: #e53935;
+}
+
+/* === TOTAL AMOUNT === */
+.total-amount {
+  text-align: right;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.total-amount h3 {
+  color: #FFF;
+}
+
+#place-order {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  color: white;
+  background-color: #FF7D1A;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-top: 30px;
+  transition: background-color 0.3s ease;
+}
+
+#place-order:hover {
+  background-color: #EA7C69;
+  box-shadow: 0 6px 6px rgba(255, 133, 76, 0.3);
+
+}
+
+.cart-table td, .cart-table th {
+  background-color: #1b1d27;
+}
+
+.cart-table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+/* === CLOSE BUTTON === */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  color: #EA7C69;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.close-button:hover {
+  color: #FF7847;
+
+}
+
+/* === CART BUTTON === */
+.cart-button {
+  background-color: #EA7C69;
+  color: white;
+  padding: 3px 8px;
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 3px 6px rgba(255, 93, 18, 0.3);
+}
+
+.cart-button:hover {
+  background-color: #eb6850;
+  transform: scale(1.05) translateX(-50%);
+  box-shadow: 0 5px 10px rgba(250, 146, 62, 0.4);
+}
+
+.cart-button:active {
+  background-color: #1e7e34;
+}
+
+
+/*item*/
+
+/* Style the container */
+
+
+/* Style input fields */
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  background-color: #1F1D2B;
+  color: white;
+  font-size: 14px;
+}
+
+/* Style input placeholders */
+input::placeholder {
+  color: #bbb;
+}
+
+/* Button base style */
+.btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  background-color: #eb6850;
+  box-shadow: 0 5px 10px rgba(250, 146, 62, 0.4);
+}
+
+/* Save Button */
+.save-btn {
+  color: white;
+  margin-top: 130px;
+}
+
+.save-btn:hover {
+  border: 1px solid rgb(255, 159, 5);
+  box-shadow: 0 5px 10px rgba(250, 146, 62, 0.4);
+  background: linear-gradient(90deg, rgba(243,65,42,1) 19%, rgba(255,126,33,1) 86%);}
+
+/* Update Button */
+.update-btn {
+  color: white;
+}
+
+.update-btn:hover {
+  border: 1px solid rgb(255, 159, 5);
+  box-shadow: 0 5px 10px rgba(250, 146, 62, 0.4);
+  background: linear-gradient(90deg, rgba(243,65,42,1) 19%, rgba(255,126,33,1) 86%);
+}
+
+/* Delete Button */
+.delete-btn {
+  color: white;
+}
+
+.delete-btn:hover {
+  background: linear-gradient(90deg, rgb(255, 30, 1) 19%, rgb(255, 107, 1) 86%);
+  border: 1px solid rgb(255, 159, 5);
+  box-shadow: 0 5px 10px rgba(250, 146, 62, 0.4);
+}
+
+.selector{
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  background-color: #1F1D2B;
+  color: white;
+  font-size: 14px;
+}
+
+
+/*customer*/
+
+.customer-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 20px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2A2D3E, #190132);
+  box-shadow: 0 5px 10px rgba(56, 3, 109, 0.4);
+  cursor: pointer;
+}
+
+.customer-table thead {
+  background: #1F1D2B;
+  border-radius: 20px 20px 0 0;
+}
+
+.customer-table th {
+  background: linear-gradient(90deg, rgba(24,6,56,1) 19%, rgba(27,2,47,1) 86%);
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 12px;
+}
+
+.customer-table tbody tr:nth-child(even) {
+  background: linear-gradient(135deg, #2A2D3E, #190132);
+}
+
+.customer-table tbody tr:hover {
+  background: #1F1D2B;
+  transition: 0.3s ease-in-out;
+}
+
+.customer-table td {
+  padding: 12px;
+  text-align: center;
+  font-size: 16px;
+  color: #FFF;
+  border: 1px solid #2D303E;
+}
+
+.customer-table td button {
+  padding: 6px 12px;
+  background: #1F1D2B;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.customer-table td button:hover {
+  background: #1F1D2B;
+}

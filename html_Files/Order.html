@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MOS Burgers</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/Css files/Order.css">
+  <script src="https://kit.fontawesome.com/f434e484c5.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container">
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="logo"><h1 class="logo-h1">M</h1></div>
+    <!-- Navigation Icons -->
+    <div class="nav-item active"><i class="bi bi-bag-check-fill"></i></div>
+    <div class="nav-item"><i class="bi bi-bag-x"></i></div>
+    <div class="nav-item"><i class="bi bi-person-lines-fill"></i></div>
+    <div class="nav-item"><i class="fas fa-hamburger"></i>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="main-header">
+      <div>
+        <h1>MOS Burgers</h1>
+        <span class="date" id="date"></span>
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Search for foods..." id="input-search">
+      <!-- Simple SVG icon for search (optional) -->
+      <div class="btn-search" onclick="searchByItemName()"><i class="bi bi-search"></i></div>
+    </div>
+
+    <div id="search-div" class="dishes">
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="active">Burgers</button>
+      <button>Submarines</button>
+      <button>Fries</button>
+      <button>Pasta</button>
+      <button>Chicken</button>
+      <button>Beverages</button>
+    </div>
+    <!-- Dishes Grid -->
+    <h2 style="margin-top: 2rem;">Choose Dishes</h2>
+    <div class="dishes" id="dishes">
+     
+      <!-- Add more dish-cards if you want -->
+    </div>
+  </main>
+
+  <aside class="place-Order">
+  <h2>Place Order</h2>
+  
+  <h4 style="padding: 10px 0; margin-top: 30px;">Customer Name : <span id="customer-name" style="text-transform: capitalize; margin-left: 15px;">shehan</span></h4>
+
+  
+  <div class="customer-selection">
+    <select id="customer-id" class="form-control" onchange="select_customer()" style="width: 100%;">
+      <option value="" >Select Customer</option>
+    </select>
+  </div>
+
+  
+  <table id="cart-table" class="customer-table">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="cart-items">
+      
+    </tbody>
+  </table>
+
+  
+  <div class="total-amount">
+    <h3>Total: $<span id="cart-total">0.00</span></h3>
+  </div>
+
+  <button id="place-order" class="btn btn-primary" onclick="place_order()">Place Order</button>
+</aside>
+
+  
+</div>
+
+<script src="/JS Files/Order.js"></script>
+</body>
+</html>

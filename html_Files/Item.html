@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MOS Burgers</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/Css files/Order.css">
+  <script src="https://kit.fontawesome.com/f434e484c5.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container">
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="logo"><h1 class="logo-h1">M</h1></div>
+    <!-- Navigation Icons -->
+    <div class="nav-item "><i class="bi bi-bag-check-fill"></i></div>
+    <div class="nav-item"><i class="bi bi-bag-x"></i></div>
+    <div class="nav-item"><i class="bi bi-person-lines-fill"></i></div>
+    <div class="nav-item active"><i class="fas fa-hamburger"></i>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="main-header">
+      <div>
+        <h1>MOS Burgers</h1>
+        <span class="date" id="date"></span>
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Search for foods..." id="input-search">
+      <!-- Simple SVG icon for search (optional) -->
+      <div class="btn-search" onclick="searchByItemName()"><i class="bi bi-search"></i></div>
+    </div>
+
+    <div id="search-div" class="dishes">
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="active">Burgers</button>
+      <button>Submarines</button>
+      <button>Fries</button>
+      <button>Pasta</button>
+      <button>Chicken</button>
+      <button>Beverages</button>
+    </div>
+    <!-- Dishes Grid -->
+     
+    <h2 style="margin-top: 2rem;">Choose Dishes</h2>
+    <div class="dishes" id="dishes">
+     
+     
+</div>
+  </main>
+
+  <aside class="place-Order">
+  <h2>Item Management</h2>
+     <br>
+    <input type="text" id="item-code" placeholder="Item code..."><br>
+    <input type="text" id="item-name" placeholder="Item Name..."><br>
+    <div class="category">
+      <select class="selector" id="selector"style="width: 100%;">
+        <option value="">Select Category</option>
+        <option value="burgers">Burgers</option>
+        <option value="submarines">Submarines</option>
+        <option value="fries">Fries</option>
+        <option value="pasta">Pasta</option>
+        <option value="chicken">Chicken</option>
+        <option value="beverages">Beverages</option>
+      </select>
+    </div>
+    <input type="number" id="item-qty" placeholder="Qty..."><br>
+    <input type="number" id="item-price" placeholder="Price..."><br>
+    <input type="number" id="item-discount" placeholder="Discount..."><br>
+
+    <button class="btn save-btn" onclick="saveItem()">Save Item</button>
+    <button class="btn update-btn" onclick="updateItem()">Update Item</button>
+    <button class="btn delete-btn" onclick="deleteItem()">Delete Item</button>
+  
+
+   
+</aside>
+
+  
+</div>
+
+<script src="/JS Files/item.js"></script>
+</body>
+</html>
