@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
   <link rel="stylesheet" href="/Css files/Order.css">
   <script src="https://kit.fontawesome.com/f434e484c5.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -61,16 +62,16 @@
    </div>
   </main>
 
-  <aside class="place-Order">
+  <aside class="place-Order" style="width: 372px;">
   <h2>Customer Management</h2>
      <br>
     <input type="text" id="name" placeholder="Customer Name..."><br>
     <input type="text" id="contact" placeholder="Contact..."><br>
     <input type="number" id="points" placeholder="Loyalty Points..."><br>
    
-    <button class="btn save-btn" onclick="saveItem()" style="margin-top: 290px;">Save Customer</button>
-    <button class="btn update-btn" onclick="updateItem()">Update Customer</button>
-    <button class="btn delete-btn" onclick="deleteItem()">Delete Customer</button>
+    <button class="btn save-btn" onclick="saveCustomer()" style="margin-top: 290px;">Save Customer</button>
+    <button class="btn update-btn" onclick="updateCustomer()">Update Customer</button>
+    <button class="btn delete-btn" onclick="deleteCustomer()">Delete Customer</button>
   
 
    

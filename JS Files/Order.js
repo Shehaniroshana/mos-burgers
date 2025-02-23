@@ -77,6 +77,15 @@ function removeDish() {
 }
 
 function add_cart(id, itemName, itemCode, qty, discount, price) {
+
+  if(qty<=0){
+    Swal.fire({
+      icon: "error",
+      title: "Invalid Quantity",
+      text: "Quantity must be greater than zero!",
+    });
+    return;
+  }
   if (cart[id]) {
     cart[id].quantity += 1;
   } else {
@@ -136,7 +145,12 @@ function place_order() {
 
   // Validate customerId (it should be a number)
   if (!customerId || isNaN(customerId)) {
-    alert("Please enter a valid Customer ID (numeric).");
+    Swal.fire({
+      icon: 'warning',
+      title: 'Invalid Customer ID',
+      text: 'Please enter a valid Customer ID (numeric).',
+      confirmButtonText: 'Got it'
+    });
     return;
   }
 
@@ -154,12 +168,27 @@ function place_order() {
 
   // Check if the cart is empty
   if (orderList.length === 0) {
-    alert("Your cart is empty. Please add items to your cart.");
+    Swal.fire({
+      icon: 'warning',
+      title: 'Empty Cart',
+      text: 'Your cart is empty. Please add items to your cart.',
+      confirmButtonText: 'OK'
+    });
     return;
   }
 
   // Send the order list to the server
   sendOrdersToServer(orderList);
+
+  // Show success SweetAlert after order submission
+  Swal.fire({
+    icon: 'success',
+    title: 'Order Placed!',
+    text: 'Your order has been placed successfully.',
+    confirmButtonText: 'Cool'
+  }).then(()=>{
+    setTimeout(() => window.location.reload(), 3000);
+  });
 }
 
 function sendOrdersToServer(orderList) {
@@ -181,9 +210,28 @@ function sendOrdersToServer(orderList) {
 
   fetch("http://localhost:8080/mos/save_order", requestOptions)
     .then((response) => response.text())
-    .then((result) => console.log("✅ Server Response:", result))
-    .catch((error) => console.error("❌ Fetch Error:", error));
+    .then((result) => {
+      console.log("✅ Server Response:", result);
+      // Show success SweetAlert
+      Swal.fire({
+        icon: 'success',
+        title: 'Order Sent!',
+        text: 'Your order has been successfully sent to the server.',
+        confirmButtonText: 'Cool'
+      });
+    })
+    .catch((error) => {
+      console.error("❌ Fetch Error:", error);
+      // Show error SweetAlert
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops!',
+        text: 'Something went wrong. Please try again later.',
+        confirmButtonText: 'Try Again'
+      });
+    });
 }
+
 
 
 function select_customer() {
@@ -225,7 +273,8 @@ document.querySelectorAll('.nav-item').forEach(item => {
       item.classList.add('active');
 
       let links = {
-          "bi-bag-check-fill": "/html_Files/Order.html",
+        "bi-bag-x": "/html_Files/Order_update,delete.html",
+                  "bi-bag-check-fill": "/html_Files/Order.html",
           "bi-person-lines-fill": "/html_Files/customer.html",
           "fa-hamburger": "/html_Files/Item.html"
       };

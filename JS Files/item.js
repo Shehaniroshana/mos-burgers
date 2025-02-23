@@ -52,9 +52,15 @@ window.onload = () => {
 function searchByItemName() {
   let search_text = document.getElementById("input-search").value;
   search_div.innerHTML = "";
+
   fetch(`http://localhost:8080/mos/item_search_by_name/${encodeURIComponent(search_text)}`)
     .then(response => response.json())
     .then(data => {
+      if (data.length === 0) {
+        Swal.fire("Not Found!", "No items matched your search. ", "warning");
+        return;
+      }
+
       data.forEach(item => {
         const dishCardHTML = `
         <div class="dish-card">
@@ -73,9 +79,15 @@ function searchByItemName() {
       `;
         search_div.innerHTML += dishCardHTML;
       });
+
+      Swal.fire("Success!", "Items loaded successfully! ", "success");
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+      console.error(error);
+      Swal.fire("Error!", "Failed to fetch items. ", "error");
+    });
 }
+
 
 function removeDish() {
   search_div.innerHTML = "";
@@ -100,54 +112,57 @@ function edit_item(id, itemName, itemCode, qty, discount, price, category) {
 
 
 function saveItem() {
- 
-  if (!item_code.value || !item_name.value || !item_category.value || !item_price.value || !item_discount.value|| !item_qty.value) {
-      alert("All fields are required!");
-      return;
+  if (!item_code.value || !item_name.value || !item_category.value || !item_price.value || !item_discount.value || !item_qty.value) {
+    Swal.fire("Warning!", "All fields are required!", "warning");
+    return;
   }
 
   if (isNaN(item_price.value) || item_price.value <= 0) {
-      alert("Please enter a valid price!");
-      return;
+    Swal.fire("Error!", "Please enter a valid price!", "error");
+    return;
   }
 
   if (isNaN(item_discount.value) || item_discount.value < 0 || item_discount.value > 100) {
-      alert("Discount must be between 0 and 100!");
-      return;
+    Swal.fire("Error!", "Discount must be between 0 and 100!", "error");
+    return;
   }
 
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
   const raw = JSON.stringify({
-      "code": item_code.value,
-      "name": item_name.value,
-      "category": item_category.value,
-      "qty":parseInt(item_qty.value),
-      "price": parseFloat(item_price.value),
-      "discount": parseFloat(item_discount.value)
+    "code": item_code.value,
+    "name": item_name.value,
+    "category": item_category.value,
+    "qty": parseInt(item_qty.value),
+    "price": parseFloat(item_price.value),
+    "discount": parseFloat(item_discount.value)
   });
 
   const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow"
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow"
   };
 
   fetch("http://localhost:8080/mos/save_item", requestOptions)
-      .then(response => {
-          if (!response.ok) {
-              throw new Error("Failed to save item!");
-          }
-          return response.text();
-      })
-      .then(result => {
-          alert("Item saved successfully!");
-          console.log(result);
-      })
-      .catch(error => {
-      });
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Failed to save item!");
+      }
+      return response.text();
+    })
+    .then(result => {
+      Swal.fire("Success!", "Item saved successfully! ", "success");
+      console.log(result);
+    }).then(()=>{
+      setTimeout(() => window.location.reload(), 3000);
+    })
+    .catch(error => {
+      Swal.fire("Error!", "Failed to save item. ", "error");
+      console.error(error);
+    });
 }
 
 
@@ -157,6 +172,7 @@ document.querySelectorAll('.nav-item').forEach(item => {
     item.classList.add('active');
 
     let links = {
+      "bi-bag-x": "/html_Files/Order_update,delete.html",
       "bi-bag-check-fill": "/html_Files/Order.html",
       "bi-person-lines-fill": "/html_Files/customer.html",
       "fa-hamburger": "/html_Files/Item.html"
@@ -172,20 +188,20 @@ document.querySelectorAll('.nav-item').forEach(item => {
 
 function updateItem(){
 
-  if (!item_code.value || !item_name.value || !item_category.value || !item_price.value || !item_discount.value|| !item_qty.value) {
-    alert("All fields are required!");
+  if (!item_code.value || !item_name.value || !item_category.value || !item_price.value || !item_discount.value || !item_qty.value) {
+    Swal.fire("Warning!", "All fields are required!", "warning");
     return;
-}
+  }
 
-if (isNaN(item_price.value) || item_price.value <= 0) {
-    alert("Please enter a valid price!");
+  if (isNaN(item_price.value) || item_price.value <= 0) {
+    Swal.fire("Error!", "Please enter a valid price!", "error");
     return;
-}
+  }
 
-if (isNaN(item_discount.value) || item_discount.value < 0 || item_discount.value > 100) {
-    alert("Discount must be between 0 and 100!");
+  if (isNaN(item_discount.value) || item_discount.value < 0 || item_discount.value > 100) {
+    Swal.fire("Error!", "Discount must be between 0 and 100!", "error");
     return;
-}
+  }
 
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
@@ -212,38 +228,55 @@ const requestOptions = {
 
 fetch("http://localhost:8080/mos/update_item", requestOptions)
   .then((response) => response.text())
-  .then((result) => console.log(result))
-  .catch((error) => console.error(error));
-
+  .then((result) => {
+    
+    Swal.fire("Success!", "Item updated successfully! ", "success");
+  }).then(()=>{
+    setTimeout(() => window.location.reload(), 3000);
+  })
+  .catch((error) =>{
+     console.error(error)
+     Swal.fire("Error!", "Failed to update item. ", "error");
+});
 
 }
 
 function deleteItem() {
   if (!item_id || item_id === "") {
-    alert("Invalid item! ❌ Please select an item before deleting.");
+    Swal.fire("Error!", "Invalid item! ❌ Please select an item before deleting.", "error");
     return;
   }
 
-  if (!confirm(`Are you sure you want to delete this item (ID: ${item_id})? This action cannot be undone! ⚠️`)) {
-    return;
-  }
+  Swal.fire({
+    title: "Are you sure?",
+    text: `Are you sure you want to delete this item (ID: ${item_id})? This action cannot be undone! ⚠️`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "Cancel"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const requestOptions = {
+        method: "DELETE",
+        redirect: "follow"
+      };
 
-  const requestOptions = {
-    method: "DELETE",
-    redirect: "follow"
-  };
-
-  fetch(`http://localhost:8080/mos/delete_item/${encodeURIComponent(item_id)}`, requestOptions)
-    .then((response) => response.text())
-    .then((result) => {
-      console.log(result);
-      alert("Item deleted successfully! ✅");
-    })
-    .catch((error) => {
-      console.error(error);
-      alert("Failed to delete item. ❌");
-    });
+      fetch(`http://localhost:8080/mos/delete_item/${encodeURIComponent(item_id)}`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+          console.log(result);
+          Swal.fire("Deleted!", "Item deleted successfully! ", "success");
+        }).then(()=>{
+          setTimeout(() => window.location.reload(), 3000);
+        })
+        .catch((error) => {
+          console.error(error);
+          Swal.fire("Error!", "Failed to delete item. ", "error");
+        });
+    }
+  });
 }
+
 
 function setDate(){
   const today = new Date();
